@@ -57,7 +57,9 @@ func (m *defaultMonitor) Start(c *exec.Cmd) (chan Exit, error) {
 			fmt.Println("go run err ", err)
 			status = 255
 			if exitErr, ok := err.(*exec.ExitError); ok {
+				fmt.Println("go run err1 ", exitErr)
 				if ws, ok := exitErr.Sys().(syscall.WaitStatus); ok {
+					fmt.Println("go run err2 ", ws)
 					status = ws.ExitStatus()
 				}
 			}

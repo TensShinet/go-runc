@@ -176,7 +176,7 @@ func (r *Runc) Create(context context.Context, id, bundle string, opts *CreateOp
 	}
 	status, err := Monitor.Wait(cmd, ec)
 	if err == nil && status != 0 {
-		err = fmt.Errorf("%s did not terminate successfully", cmd.Args[0])
+		err = fmt.Errorf("%s did not terminate successfully, and exit code is %d", cmd.Args[0], status)
 	}
 	return err
 }
@@ -256,7 +256,7 @@ func (r *Runc) Exec(context context.Context, id string, spec specs.Process, opts
 	}
 	status, err := Monitor.Wait(cmd, ec)
 	if err == nil && status != 0 {
-		err = fmt.Errorf("%s did not terminate successfully", cmd.Args[0])
+		err = fmt.Errorf("%s did not terminate successfully, and exit code is %d", cmd.Args[0], status)
 	}
 	return err
 }
@@ -282,7 +282,7 @@ func (r *Runc) Run(context context.Context, id, bundle string, opts *CreateOpts)
 	}
 	status, err := Monitor.Wait(cmd, ec)
 	if err == nil && status != 0 {
-		err = fmt.Errorf("%s did not terminate successfully", cmd.Args[0])
+		err = fmt.Errorf("%s did not terminate successfully, and exit code is %d", cmd.Args[0], status)
 	}
 	return status, err
 }
@@ -583,7 +583,8 @@ func (r *Runc) Restore(context context.Context, id, bundle string, opts *Restore
 	}
 	status, err := Monitor.Wait(cmd, ec)
 	if err == nil && status != 0 {
-		err = fmt.Errorf("%s did not terminate successfully", cmd.Args[0])
+		err = fmt.Errorf("%s did not terminate successfully, and exit code is %d", cmd.Args[0], status)
+
 	}
 	return status, err
 }
@@ -680,7 +681,7 @@ func (r *Runc) runOrError(cmd *exec.Cmd) error {
 		}
 		status, err := Monitor.Wait(cmd, ec)
 		if err == nil && status != 0 {
-			err = fmt.Errorf("%s did not terminate successfully", cmd.Args[0])
+			err = fmt.Errorf("%s did not terminate successfully, and exit code is %d", cmd.Args[0], status)
 		}
 		return err
 	}
@@ -708,7 +709,7 @@ func cmdOutput(cmd *exec.Cmd, combined bool) (*bytes.Buffer, error) {
 
 	status, err := Monitor.Wait(cmd, ec)
 	if err == nil && status != 0 {
-		err = fmt.Errorf("%s did not terminate successfully", cmd.Args[0])
+		err = fmt.Errorf("%s did not terminate successfully, and exit code is %d", cmd.Args[0], status)
 	}
 
 	return b, err

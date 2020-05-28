@@ -17,6 +17,7 @@
 package runc
 
 import (
+	"fmt"
 	"os/exec"
 	"syscall"
 	"time"
@@ -53,6 +54,7 @@ func (m *defaultMonitor) Start(c *exec.Cmd) (chan Exit, error) {
 	go func() {
 		var status int
 		if err := c.Wait(); err != nil {
+			fmt.Println("go run err ", err)
 			status = 255
 			if exitErr, ok := err.(*exec.ExitError); ok {
 				if ws, ok := exitErr.Sys().(syscall.WaitStatus); ok {

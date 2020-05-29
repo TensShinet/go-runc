@@ -38,6 +38,9 @@ func (r *Runc) command(context context.Context, args ...string) *exec.Cmd {
 		cmd.SysProcAttr.Pdeathsig = r.PdeathSignal
 	}
 
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+
 	return cmd
 }
 

@@ -69,6 +69,7 @@ func (m *defaultMonitor) Start(c *exec.Cmd) (chan Exit, error) {
 			Pid:       c.Process.Pid,
 			Status:    status,
 		}
+		fmt.Println("c.Process.Pid ", c.Process.Pid)
 		close(ec)
 	}()
 	return ec, nil
